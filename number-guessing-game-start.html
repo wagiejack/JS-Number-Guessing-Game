@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+      
+      .form input[type="number"] {
+        width: 200px;
+      }
+
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Number guessing game</h1>
+
+    <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.</p>
+
+    <div class="form">
+      <label for="guessField">Enter a guess: </label>
+      <input type="number" min="1" max="100" required id="guessField" class="guessField">
+      <input type="submit" value="Submit guess" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+
+    <script>
+
+      // Your JavaScript goes here
+      const guessField = document.querySelector("#guessField");
+      const guesses = document.querySelector(".guesses");
+      const lastResult = document.querySelector(".lastResult");
+      const lowOrHi = document.querySelector(".lowOrHi");
+      let turns = 10;
+      let randomNumber = Math.floor(Math.random()*100)+1;
+      const submitButton = document.querySelector(".guessSubmit");
+      const form = document.querySelector(".form");
+      function reset(){
+        lastResult.textContent = "";
+        lowOrHi.textContent = "";
+        guesses.textContent = "";
+        turns = 10;
+        randomNumber = Math.floor(Math.random()*100)+1;
+      };
+      function change(){
+        currNum = Number(guessField.value);
+        correctNum = randomNumber;
+        console.log(currNum);
+        console.log(correctNum);
+        if (currNum == correctNum){
+          alert("You Won!");
+        }
+        lastResult.textContent = currNum;
+        lastResult.style.color = "black";
+        lowOrHi.textContent = currNum>correctNum?"High":"Low";
+        guesses.textContent = turns-1;
+        turns = turns-1;
+        if (guesses.textContent==0){
+          alert("You Lost, commit seppoku");
+          reset();
+        }
+      };
+      submitButton.addEventListener("click",change)
+
+    </script>
+  </body>
+</html>
